@@ -1,10 +1,13 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'blogapp/style.css' %}" />
-
+{% extends "blogapp/base.html" %}
+{% block content %}
 <h1>
 <a href="{% url 'blogapp:edit_page' 0 %}">新文章</a>
 </h1>
 {% for article in articles %}
-    <a href="{% url 'blogapp:article_page' article.id %}">{{ article.title }}</a>
-    <br/>
+    <div class ='blog-post'>
+        <a href="{% url 'blogapp:article_page' article.id %}"><h2 class="blog-post-title">{{ article.title }}</h2></a>
+        <p>{{ article.content }}</p>
+
+    </div>
 {% endfor %}
+{% endblock %}
