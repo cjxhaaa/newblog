@@ -2,16 +2,8 @@ from django.conf.urls import url, include
 
 from . import views
 
-
-# urlpatterns = [
-#     url(r'^$', views.index),
-#     url(r'^article/(?P<article_id>[0-9]+)$', views.article_page,name='article_page'),
-#     url(r'^edit/(?P<article_id>[0-9]+)$',views.edit_page,name='edit_page'),
-#     url(r'^edit/action$',views.edit_action,name='edit_action')
-# ]
-
-
 urlpatterns = [
-    url(r'^$', views.IndexList.as_view()),
-    url(r'^article/(?P<pk>[0-9]+)$', views.PageView.as_view(),name='article_page'),
+    url(r'^detail/(\d+)/$',views.get_details,name='blog_get_detail'),
+    url(r'^$', views.get_blogs),
+#     url(r'^article/(?P<pk>[0-9]+)$', views.PageView.as_view(),name='article_page'),
 ]

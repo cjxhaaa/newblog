@@ -1,40 +1,31 @@
-from django.shortcuts import render
-from django.views.generic import ListView,DetailView
-from .models import Article
+from django.http import Http404
+from django.shortcuts import render, render_to_response
+
+from .forms import CommentForm
+from .models import *
 
 
-#def index(request):
-#    articles = Article.objects.all()
-#    return render(request, 'blogapp/index.html',{'articles':articles})
-class IndexList(ListView):
-    model = Article
-    context_object_name = 'articles'
-    template_name = 'blogapp/index.html'
+def get_blogs(request):
+    blogs = Blog.objects.all().order_by('-pub_time')
+    return render_to_response('blogapp/blog_list.html',{'blogs':blogs})
 
-# def article_page(request, article_id):
-#     article = Article.objects.get(pk=article_id)
-#     return render(request,"blogapp/article_page.html",{'article':article})
-class PageView(DetailView):
-    model = Article
-    context_object_name = 'article'
-    template_name = 'blogapp/article_page.html'
+def get_details(request,blog_id):
+    try:
+        blog = Blog.objects.get(id=blog_id)
+    except Blog.DoesNotExist:
+        raise Http404
+    if request.method == 'GET':
+        form = CommentForm()
+    else:
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            cleaned_data['blog'] = blog
+            Comment.objects.create(**cleaned_data)
+    ctx = {
+        'blog':blog,
+        'comments':blog.comment_set.all().order_by('-pub_time'),
+        'form':form
+    }
+    return render(request,'blogapp/blog_details.html',ctx)
 
-# def edit_page(request,article_id):
-#     if str(article_id) == '0':
-#         return render(request,'blogapp/edit_page.html')
-#     article = Article.objects.get(pk=article_id)
-#     return render(request,'blogapp/edit_page.html',{'article':article})
-
-# def edit_action(request):
-#     title = request.POST.get('title','TITLE')
-#     content = request.POST.get('content','CONTENT')
-#     article_id = request.POST.get('article_id','0')
-#     if article_id == '0':
-#         Article.objects.create(title=title,content=content)
-#         articles = Article.objects.all()
-#         return render(request, 'blogapp/index.html',{'articles':articles})
-#     article = Article.objects.get(pk=article_id)
-#     article.title = title
-#     article.content = content
-#     article.save()
-#     return render(request,"blogapp/article_page.html",{'article':article})
