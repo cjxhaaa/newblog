@@ -29,14 +29,17 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item active" href="#">主页</a>
-          <a class="blog-nav-item" href="#">New features</a>
+          <a class="blog-nav-item active" href="{% url 'blog:index' %}">主页</a>
           <a class="blog-nav-item" href="#">关于</a>
         </nav>
       </div>
     </div>
 
     <div class="container">
+        <div class="blog-header">
+            <h1 class="blog-title">Cjxh's Blog</h1>
+            <p class="lead blog-description">enjoy yourself</p>
+        </div>
         <div class="row">
             <div class="col-sm-8 blog-main">
             {% block content %}{% endblock %}
@@ -45,8 +48,8 @@
 
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
               <div class="sidebar-module sidebar-module-inset">
-                <h4>About</h4>
-                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+                <h4>博客介绍</h4>
+                <p>欢迎来到我的个人博客！此博客主要用于记录技术随笔，个人感想等。由于初学编程，个中纰漏，望请指出，谢谢！</p>
               </div>
               <div class="sidebar-module">
                 <h4>Archives</h4>

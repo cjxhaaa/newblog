@@ -1,21 +1,33 @@
-from django import forms
+from django.forms import Form,ModelForm,Textarea,TextInput,CharField
+from django.utils.translation import ugettext_lazy as _
+from .models import Comment
 
 
-class CommentForm(forms.Form):
-    '''
-    评论表单用于发表博客评论。表单的类根据需求定义三个字段：称呼、邮箱、评论
-    '''
-    name = forms.CharField(label='称呼', max_length=16, error_messages={
-        'required': '请填写您的称呼',
-        'max=length': '名称太长了'
-    })
+class CommentForm(ModelForm):
+    class Meta:
+        models = Comment
+        fields = ['name','context']
+        widgets = {
+            'name':TextInput(attrs={
+                'placeholder':'输入昵称',
+            }),
+            'context':Textarea(attrs={
+                'placeholder':'说两句',
+                'rows':4
+            })
+        }
+        labels = {
+            'name':_('昵称'),
+            'context':_('评论'),
+        }
 
-    email = forms.EmailField(label='邮箱', error_messages={
-        'required': '请填写您的邮箱',
-        'invalid': '邮箱格式不正确'
-    })
-
-    context = forms.CharField(label='评论内容', error_messages={
-        'required': '请填写您的评论！',
-        'max_length': '评论内容太长'
-    })
+# class CommentForm(Form):
+#     name = CharField(label='昵称', max_length=16, error_messages={
+#         'required': '请填写您的称呼',
+#         'max=length': '名称太长了'
+#     })
+#
+#     context = CharField(label='评论内容', error_messages={
+#         'required': '请填写您的评论！',
+#         'max_length': '评论内容太长'
+#     })
