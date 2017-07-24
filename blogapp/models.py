@@ -45,7 +45,7 @@ class Comment(models.Model):
     '''
     评论
     '''
-    blog = models.ForeignKey(Blog,verbose_name='评论所属文章')
+    blog = models.ForeignKey(Blog,verbose_name='评论所属文章',on_delete=models.CASCADE)
     name = models.CharField('称呼',max_length=32)
     # EmailField检查输入的email地址是否合法
     # email = models.EmailField('邮箱')

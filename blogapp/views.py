@@ -23,24 +23,28 @@ def get_details(request,blog_id):
         blog = Blog.objects.get(id=blog_id)
     except Blog.DoesNotExist:
         raise Http404
-    CommentFormSet = modelformset_factory(
-        Comment,fields=('name','context'),
-        widgets={
-            'name': TextInput(attrs={ 'placeholder': '输入昵称','rows': 1}),
-            'context': Textarea(attrs={ 'placeholder': '说两句','rows': 4})},
-        )
-    if request.method == 'GET':
-        form = CommentFormSet()
-    else:
-        form = CommentFormSet(request.POST)
+    # CommentFormSet = modelformset_factory(
+    #     Comment,fields=('name','context'),
+    #     # widgets={
+    #     #     'name': TextInput(attrs={ 'placeholder': '输入昵称','rows': 1}),
+    #     #     'context': Textarea(attrs={ 'placeholder': '说两句','rows': 4})},
+    #     )
+    if request.method == 'POST':
+        #获取POST表单数据
+        form = CommentForm(request.POST)
         #is_valid()执行验证并返回一个表示数据是否合法的布尔值
         if form.is_valid():
             # #验证成功，表单数据将位于form.cleaned_data字典中
             cleaned_data = form.cleaned_data
-            # # cleaned_data['blog'] = get_object_or_404(Blog,pk=blog_id)
             cleaned_data['blog'] = blog
             Comment.objects.create(**cleaned_data)
-            # form.save()
+            # name = form.cleaned_data['name']
+            # context = form.cleaned_data['context']
+            # blog = get_object_or_404(Blog,pk=blog_id)
+            # new_record = CommentForm(name=name,context=context,blog=blog)
+            # new_record.save()
+    else:
+        form = CommentForm()
     ctx = {
         'blog': blog,
         'comments':blog.comment_set.all().order_by('-pub_time'),
