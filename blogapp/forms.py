@@ -1,4 +1,4 @@
-from django.forms import Form,ModelForm,Textarea,TextInput,CharField
+from django.forms import Form,ModelForm,Textarea,TextInput,CharField,DateTimeField
 from django.utils.translation import ugettext_lazy as _
 from .models import Comment
 
@@ -22,12 +22,23 @@ from .models import Comment
 #         }
 
 class CommentForm(Form):
-    name = CharField(label='昵称', max_length=16, error_messages={
-        'required': '请填写您的称呼',
-        'max=length': '名称太长了'
-    })
+    name = CharField(label='昵称', max_length=16,
+                     error_messages={
+                         'required': '请填写您的称呼',
+                         'max=length': '名称太长了'
+                     },
+                     widget=TextInput(attrs={
+                         'class':'form-control',
+                     })
+                     )
 
-    context = CharField(label='评论内容', error_messages={
-        'required': '请填写您的评论！',
-        'max_length': '评论内容太长'
-    })
+    context = CharField(label='评论',
+                        error_messages={
+                            'required': '请填写您的评论！',
+                            'max_length': '评论内容太长'
+                        },
+                        widget=Textarea(attrs={
+                            'class':'form-control',
+                            'rows':3
+                        })
+                        )

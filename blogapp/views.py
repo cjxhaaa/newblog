@@ -2,9 +2,8 @@ from django.http import Http404
 from django.shortcuts import render, render_to_response,redirect,get_object_or_404
 #reder必选参数：request，template_name
 #render_to response必选参数template_name
-from django.forms.models import modelformset_factory
-from django.forms import Textarea,TextInput
-from django.utils.translation import ugettext_lazy as _
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .forms import CommentForm
 from .models import *
 
@@ -16,6 +15,8 @@ def get_blogs(request):
     blogs = Blog.objects.all().order_by('-pub_time')
     return render_to_response('blogapp/blog_list.html',{'blogs':blogs})
 
+
+
 def get_details(request,blog_id):
     try:
         #objects.get(**kwargs)返回按照查询参数匹配到的对象
@@ -23,12 +24,6 @@ def get_details(request,blog_id):
         blog = Blog.objects.get(id=blog_id)
     except Blog.DoesNotExist:
         raise Http404
-    # CommentFormSet = modelformset_factory(
-    #     Comment,fields=('name','context'),
-    #     # widgets={
-    #     #     'name': TextInput(attrs={ 'placeholder': '输入昵称','rows': 1}),
-    #     #     'context': Textarea(attrs={ 'placeholder': '说两句','rows': 4})},
-    #     )
     if request.method == 'POST':
         #获取POST表单数据
         form = CommentForm(request.POST)
@@ -38,11 +33,6 @@ def get_details(request,blog_id):
             cleaned_data = form.cleaned_data
             cleaned_data['blog'] = blog
             Comment.objects.create(**cleaned_data)
-            # name = form.cleaned_data['name']
-            # context = form.cleaned_data['context']
-            # blog = get_object_or_404(Blog,pk=blog_id)
-            # new_record = CommentForm(name=name,context=context,blog=blog)
-            # new_record.save()
     else:
         form = CommentForm()
     ctx = {
@@ -51,21 +41,4 @@ def get_details(request,blog_id):
         'form':form,
     }
     return render(request,'blogapp/blog_details.html',ctx)
-
-# def comment(request,blog_id):
-#     if request.method == 'GET':
-#         form = CommentForm()
-#     else:
-#         form = CommentForm(request.POST)
-#         #is_valid()执行验证并返回一个表示数据是否合法的布尔值
-#         if form.is_valid():
-#             #验证成功，表单数据将位于form.cleaned_data字典中
-#             cleaned_data = form.cleaned_data
-#             cleaned_data['blog'] = get_object_or_404(Blog,pk=blog_id)
-#             Comment.objects.create(**cleaned_data)
-#     ll = {
-#         'comments':blog.comment_set.all().order_by('-pub_time'),
-#         'form':form
-#     }
-#     return render(request,'blogapp/comment.html',ll)
 

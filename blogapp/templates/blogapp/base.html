@@ -29,21 +29,21 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item active" href="{% url 'blog:index' %}">主页</a>
-          <a class="blog-nav-item" href="#">关于</a>
+          <a class="blog-nav-item active" href="{% url 'blog:index' %}">Home</a>
+          <a class="blog-nav-item" href="#">About</a>
         </nav>
       </div>
     </div>
 
     <div class="container">
-        <div class="blog-header">
-            <h1 class="blog-title">Cjxh's Blog</h1>
-            <p class="lead blog-description">enjoy yourself</p>
+        <div class="page-header">
+            <br>
+            <h1>Cjxh's Blog <small>enjoy yourself</small></h1>
+            <br>
         </div>
         <div class="row">
-            <div class="col-sm-8 blog-main">
-            {% block content %}{% endblock %}
-
+            <div class="col-sm-8 blog-main" >
+                {% block content %}{% endblock %}
             </div>
 
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">

@@ -1,4 +1,4 @@
-<div class="comment-post" style="padding-top: 20px;">
+<div class="col-sm-12 comment-post" style="padding-top: 20px;">
     <h3>评论区</h3>
     <form action="{% url 'blog:blog_get_detail' blog.id %}" method="post">
         {% csrf_token %}
@@ -8,14 +8,14 @@
             {{ field.errors }}
             </div>
         {% endfor %}
-{#        <div>#}
-{#            {{ form}}#}
-{#        </div>#}
         <button type="submit">提交</button>
     </form>
+    <br>
+    <br>
     {% for comment in comments %}
-        <div class="comment-field" style="padding-top: 10px;">
-            {{ comment.name }} 说: {{ comment.context }}
-        </div>
+        <p>{{ comment.name }} - <small>{{ comment.pub_time }}</small></p>
+        <ul class="comment-field list-group">
+            <li class="list-group-item">{{ comment.context }}</li>
+        </ul>
     {% endfor %}
 </div>
