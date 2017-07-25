@@ -1,6 +1,6 @@
-from django.forms import Form,ModelForm,Textarea,TextInput,CharField,DateTimeField
+from django.forms import Form,ModelForm,Textarea,TextInput,CharField
 from django.utils.translation import ugettext_lazy as _
-from .models import Comment
+from .models import Comment,Blog
 
 
 # class CommentForm(ModelForm):
@@ -10,11 +10,13 @@ from .models import Comment
 #         widgets = {
 #             'name':TextInput(attrs={
 #                 'placeholder':'输入昵称',
+#                 'class': 'form-control'
 #             }),
 #             'context':Textarea(attrs={
 #                 'placeholder':'说两句',
-#                 'rows':4
-#             })
+#                 'class': 'form-control',
+#                 'rows':3
+#             }),
 #         }
 #         labels = {
 #             'name':_('昵称'),

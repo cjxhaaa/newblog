@@ -38,6 +38,9 @@ class Blog(models.Model):
     catagory = models.ForeignKey(Catagory,verbose_name='分类')
     #ManyToManyField一个多对多关联。要求一个关键字参数：与该模型关联的类，与ForeignKey 的工作方式完全一样
     tags = models.ManyToManyField(Tag,verbose_name='标签')
+
+    class Meta:
+        ordering = ['-pub_time']
     def __str__(self):
         return self.title
 
@@ -45,12 +48,14 @@ class Comment(models.Model):
     '''
     评论
     '''
-    blog = models.ForeignKey(Blog,verbose_name='评论所属文章',on_delete=models.CASCADE)
     name = models.CharField('称呼',max_length=32)
     # EmailField检查输入的email地址是否合法
     # email = models.EmailField('邮箱')
     context = models.CharField('内容',max_length=300)
     pub_time = models.DateTimeField('评论时间',auto_now_add=True)
+    blog = models.ForeignKey(Blog, verbose_name='评论所属文章', on_delete=models.CASCADE)
+    class Meta:
+        ordering = ['-pub_time']
 
     def __str__(self):
-        return self.context
+        return self.context[:20]

@@ -1,44 +1,44 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>Blog Template for Bootstrap</title>
+        <title>Blog Template for Bootstrap</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'blogapp/css/bootstrap.min.css' %}" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'blogapp/css/bootstrap.min.css' %}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="{% static 'blogapp/css/blog.css' %}" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="{% static 'blogapp/css/blog.css' %}" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
 
-  <body>
+    <body>
 
-    <div class="blog-masthead">
-      <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item active" href="{% url 'blog:index' %}">Home</a>
-          <a class="blog-nav-item" href="#">About</a>
-        </nav>
-      </div>
-    </div>
+        <div class="blog-masthead">
+            <div class="container">
+                <nav class="blog-nav">
+                    <a class="blog-nav-item active" href="{% url 'blog:index' %}">Home</a>
+                     <a class="blog-nav-item" href="#">About</a>
+                 </nav>
+            </div>
+        </div>
 
     <div class="container">
         <div class="page-header">
             <br>
-            <h1>Cjxh's Blog <small>enjoy yourself</small></h1>
+            <h1>Cjxh's Blog <small>enjoy life.</small></h1>
             <br>
         </div>
         <div class="row">
@@ -47,49 +47,41 @@
             </div>
 
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-              <div class="sidebar-module sidebar-module-inset">
-                <h4>博客介绍</h4>
-                <p>欢迎来到我的个人博客！此博客主要用于记录技术随笔，个人感想等。由于初学编程，个中纰漏，望请指出，谢谢！</p>
-              </div>
-              <div class="sidebar-module">
-                <h4>Archives</h4>
-                <ol class="list-unstyled">
-                  <li><a href="#">March 2014</a></li>
-                  <li><a href="#">February 2014</a></li>
-                  <li><a href="#">January 2014</a></li>
-                  <li><a href="#">December 2013</a></li>
-                  <li><a href="#">November 2013</a></li>
-                  <li><a href="#">October 2013</a></li>
-                  <li><a href="#">September 2013</a></li>
-                  <li><a href="#">August 2013</a></li>
-                  <li><a href="#">July 2013</a></li>
-                  <li><a href="#">June 2013</a></li>
-                  <li><a href="#">May 2013</a></li>
-                  <li><a href="#">April 2013</a></li>
-                </ol>
-              </div>
-              <div class="sidebar-module">
-                <h4>Elsewhere</h4>
-                <ol class="list-unstyled">
-                  <li><a href="#">GitHub</a></li>
-                  <li><a href="#">Twitter</a></li>
-                  <li><a href="#">Facebook</a></li>
-                </ol>
-              </div>
+                <div class="sidebar-module sidebar-module-inset">
+                    <h4>博客介绍</h4>
+                    <p>欢迎来到我的个人博客！此博客通过django1.11，bootstrap建立。由于初学编程，个中纰漏，望请指出，谢谢！</p>
+                </div>
+                <div class="sidebar-module">
+                    <h4>Archives</h4>
+                    <ul>
+                        {% for category in category_list %}
+                        <li><a href="">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+                <div class="sidebar-module">
+                   <h4>Elsewhere</h4>
+                   <ol class="list-unstyled">
+                       <li><a href="#">GitHub</a></li>
+                       <li><a href="#">Twitter</a></li>
+                       <li><a href="#">Facebook</a></li>
+                   </ol>
+                </div>
             </div><!-- /.blog-sidebar -->
         </div>
     </div>
 
     <footer class="blog-footer">
-      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-      <p>
-        <a href="#">Back to top</a>
-      </p>
+        <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+        <p>
+          <a href="#">Back to top</a>
+        </p>
     </footer>
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
+    <script src="{% static 'blogapp/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'blogapp/js/bootstrap.min.js' %}"></script>
 
-  </body>
+    </body>
 </html>
