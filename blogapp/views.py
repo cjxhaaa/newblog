@@ -1,5 +1,4 @@
-from django.http import Http404
-from django.shortcuts import render, render_to_response,redirect,get_object_or_404,get_list_or_404
+from django.shortcuts import render, render_to_response,redirect,get_object_or_404
 #reder必选参数：request，template_name
 #render_to response必选参数template_name
 from django.views.generic.list import ListView
@@ -64,6 +63,7 @@ def CommentView(request,blog_id):
             #create在一步操作中同时创建并保存
             Comment.objects.create(**cleaned_data)
             return redirect('blog:blog_get_detail',blog_id=blog_id)
+
 
 # def get_details(request,blog_id):
 #     try:
