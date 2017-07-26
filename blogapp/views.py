@@ -19,10 +19,10 @@ import re
 class IndexView(ListView):
     model = Blog
     template_name = 'blogapp/blog_list.html'
-    context_object_name = 'blogs'
+    context_object_name = 'blog_list'
     #添加额外的内容
     def get_context_data(self, **kwargs):
-        kwargs['category_list'] = Catagory.objects.all().order_by('name')
+        kwargs['category_list'] = Category.objects.all().order_by('name')
         kwargs['tag_list'] = Tag.objects.all().order_by('name')
         #添加以上变量到上下文中，同时返回默认上下文的变量
         return super(IndexView,self).get_context_data(**kwargs)
@@ -31,13 +31,26 @@ class BlogDetailView(DetailView):
     model = Blog
     template_name = 'blogapp/blog_details.html'
     context_object_name = 'blog'
+    #pk_url_kwarg接收来自url中的逐渐，然后根据逐渐进行查询
     pk_url_kwarg = 'blog_id'
     def get_context_data(self, **kwargs):
-        kwargs['category_list'] = Catagory.objects.all().order_by('name')
+        kwargs['category_list'] = Category.objects.all().order_by('name')
         kwargs['tag_list'] = Tag.objects.all().order_by('name')
         kwargs['form'] = CommentForm()
         kwargs['comments'] = self.object.comment_set.all()
         return super(BlogDetailView,self).get_context_data(**kwargs)
+
+class CategoryView(ListView):
+    model = Blog
+    template_name = 'blogapp/blog_list.html'
+    context_object_name = 'blog_list'
+    #get_querysett()获取Model列表，同时加入了自己的逻辑
+    def get_context_data(self, **kwargs):
+        kwargs['blog_list'] = Blog.objects.filter(category=self.kwargs['cate_id'])
+        kwargs['category_list'] = Category.objects.all().order_by('name')
+        kwargs['tag_list'] = Tag.objects.all().order_by('name')
+        kwargs['category_name'] = get_object_or_404(Category,pk=self.kwargs['cate_id'])
+        return super(CategoryView, self).get_context_data(**kwargs)
 
 def CommentView(request,blog_id):
     if request.method == 'POST':
@@ -48,6 +61,7 @@ def CommentView(request,blog_id):
             # #验证成功，表单数据将位于form.cleaned_data字典中
             cleaned_data = form.cleaned_data
             cleaned_data['blog'] = get_object_or_404(Blog,id=blog_id)
+            #create在一步操作中同时创建并保存
             Comment.objects.create(**cleaned_data)
             return redirect('blog:blog_get_detail',blog_id=blog_id)
 

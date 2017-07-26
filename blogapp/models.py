@@ -1,6 +1,6 @@
 from django.db import models
 
-class Catagory(models.Model):
+class Category(models.Model):
     '''
     博客分类
     '''
@@ -35,7 +35,7 @@ class Blog(models.Model):
     # 若要创建一个递归的关联，对象与自己具有多对一的关系，请使用models.ForeignKey('self')。
     # 如果你需要关联到一个还没有定义的模型，你可以使用模型的名字而不用模型对象本身
     #verbose_name一个字段的可读性更高的名称
-    catagory = models.ForeignKey(Catagory,verbose_name='分类')
+    category = models.ForeignKey(Category,verbose_name='分类',on_delete=models.SET_NULL,null=True)
     #ManyToManyField一个多对多关联。要求一个关键字参数：与该模型关联的类，与ForeignKey 的工作方式完全一样
     tags = models.ManyToManyField(Tag,verbose_name='标签')
 

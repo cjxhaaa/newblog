@@ -51,23 +51,7 @@
                     <h4>博客介绍</h4>
                     <p>欢迎来到我的个人博客！此博客通过django1.11，bootstrap建立。由于初学编程，个中纰漏，望请指出，谢谢！</p>
                 </div>
-                <div class="sidebar-module">
-                    <h4>Archives</h4>
-                    <ul>
-                        {% for category in category_list %}
-                        <li><a href="">{{ category.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-
-                </div>
-                <div class="sidebar-module">
-                   <h4>Elsewhere</h4>
-                   <ol class="list-unstyled">
-                       <li><a href="#">GitHub</a></li>
-                       <li><a href="#">Twitter</a></li>
-                       <li><a href="#">Facebook</a></li>
-                   </ol>
-                </div>
+                {% include 'blogapp/category.html' %}
             </div><!-- /.blog-sidebar -->
         </div>
     </div>
