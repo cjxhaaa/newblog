@@ -9,5 +9,5 @@ from .models import *
 #     list_display = ('title','pub_time')
 #     list_filter = ['pub_time']
 #     search_fields = ['title']
-admin.site.register([Blog,Category,Tag,Comment])
+admin.site.register([Blog,Category,Tag,Comment,BlogYear])
 

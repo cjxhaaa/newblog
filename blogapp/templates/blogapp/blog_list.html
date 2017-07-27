@@ -1,7 +1,7 @@
 {% extends "blogapp/base.html" %}
 {% block content %}
 {% load page_tags %}
-{% paginate blog_list 2 %}
+{% paginate blog_list 3 %}
 {% for blog in blog_list %}
     <div class="title">
         <a href="{% url 'blog:blog_get_detail' blog.id %}"><h2>{{ blog.title }}</h2></a>

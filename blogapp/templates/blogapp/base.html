@@ -11,11 +11,12 @@
 
         <title>Blog Template for Bootstrap</title>
 
+
         <!-- Bootstrap core CSS -->
         <link href="{% static 'blogapp/css/bootstrap.min.css' %}" rel="stylesheet">
-
         <!-- Custom styles for this template -->
         <link href="{% static 'blogapp/css/blog.css' %}" rel="stylesheet">
+
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -25,16 +26,7 @@
     </head>
 
     <body>
-
-        <div class="blog-masthead">
-            <div class="container">
-                <nav class="blog-nav">
-                    <a class="blog-nav-item active" href="{% url 'blog:index' %}">Home</a>
-                     <a class="blog-nav-item" href="#">About</a>
-                 </nav>
-            </div>
-        </div>
-
+    {% include 'blogapp/navigation.html' %}
     <div class="container">
         <div class="page-header">
             <br>
@@ -45,13 +37,18 @@
             <div class="col-sm-8 blog-main" >
                 {% block content %}{% endblock %}
             </div>
-
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
                 <div class="sidebar-module sidebar-module-inset">
-                    <h4>博客介绍</h4>
+                    <h4>About site</h4>
                     <p>欢迎来到我的个人博客！此博客通过django1.11，bootstrap建立。由于初学编程，个中纰漏，望请指出，谢谢！</p>
                 </div>
                 {% include 'blogapp/category.html' %}
+                <div class="sidebar-module">
+                   <h4>Elsewhere</h4>
+                   <ul class="list-unstyled">
+                       <li><a href="https://github.com/cjxhaaa">GitHub</a></li>
+                   </ul>
+                </div>
             </div><!-- /.blog-sidebar -->
         </div>
     </div>

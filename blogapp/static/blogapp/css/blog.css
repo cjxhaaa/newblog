@@ -170,3 +170,18 @@ h6, .h6 {
 .comment-field {
   padding-top: 10px;
 }
+
+div#tableContainer {
+  display: table;
+}
+
+div#tableRow {
+  display: table-row;
+}
+
+#timeCol {
+  display: table-cell;
+  vertical-align: top;
+}
+
+

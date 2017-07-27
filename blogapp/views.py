@@ -51,6 +51,15 @@ class CategoryView(ListView):
         kwargs['category_name'] = get_object_or_404(Category,pk=self.kwargs['cate_id'])
         return super(CategoryView, self).get_context_data(**kwargs)
 
+class ArchivesView(ListView):
+    model = Blog
+    template_name = 'blogapp/archives.html'
+    context_object_name =  'blog_list'
+    def get_context_data(self, **kwargs):
+        kwargs['category_list'] = Category.objects.all().order_by('name')
+        kwargs['blogyear_list'] = BlogYear.objects.all().order_by('-name')
+        return super(ArchivesView,self).get_context_data(**kwargs)
+
 def CommentView(request,blog_id):
     if request.method == 'POST':
         #获取POST表单数据
@@ -63,6 +72,8 @@ def CommentView(request,blog_id):
             #create在一步操作中同时创建并保存
             Comment.objects.create(**cleaned_data)
             return redirect('blog:blog_get_detail',blog_id=blog_id)
+
+
 
 
 # def get_details(request,blog_id):

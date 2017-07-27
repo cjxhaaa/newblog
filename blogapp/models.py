@@ -18,6 +18,14 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+class BlogYear(models.Model):
+    '''
+    归档年份
+    '''
+    name = models.CharField('归档年份',max_length=20)
+    def __str__(self):
+        return self.name
+
 class Blog(models.Model):
     '''
     博客
@@ -38,6 +46,7 @@ class Blog(models.Model):
     category = models.ForeignKey(Category,verbose_name='分类',on_delete=models.SET_NULL,null=True)
     #ManyToManyField一个多对多关联。要求一个关键字参数：与该模型关联的类，与ForeignKey 的工作方式完全一样
     tags = models.ManyToManyField(Tag,verbose_name='标签')
+    blogyear = models.ForeignKey(BlogYear,verbose_name='归档年份',on_delete=models.SET_NULL,null=True)
 
     class Meta:
         ordering = ['-pub_time']
@@ -59,3 +68,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.context[:20]
+
+

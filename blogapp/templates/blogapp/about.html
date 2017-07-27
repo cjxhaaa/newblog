@@ -1,0 +1,18 @@
+{% extends "blogapp/base.html" %}
+{% block content %}
+    <div class="content">
+        <div class="blog">
+            <div class="title">
+                <a href="#"><h2>{{ blog.title }}</h2></a>
+            </div>
+            <div class="info">
+                <span>{{ blog.category.name }}</span>
+                <span>{{ blog.author }}</span>
+                <span>{{ blog.pub_time|date:"Y-m-d H:i" }}</span>
+            </div>
+            <div class="summary">
+                {{ blog.content }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
