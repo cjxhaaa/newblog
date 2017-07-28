@@ -3,6 +3,7 @@ from django.shortcuts import render, render_to_response,redirect,get_object_or_4
 #render_to response必选参数template_name
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.core.mail import send_mail
 from .forms import CommentForm
 from .models import *
 import re
@@ -73,7 +74,19 @@ def CommentView(request,blog_id):
             Comment.objects.create(**cleaned_data)
             return redirect('blog:blog_get_detail',blog_id=blog_id)
 
+def SuggestView(request):
+    if request.method == 'POST':
 
+        send_mail(
+            '访客建议',
+            request.POST['message'],
+            '405019079@qq.com',
+            ['405019079@qq.com']
+        )
+        return redirect('blog:thanks')
+
+def Thanks(request, ):
+    return render(request, 'blogapp/thanks.html')
 
 
 # def get_details(request,blog_id):

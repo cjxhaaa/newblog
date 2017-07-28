@@ -125,6 +125,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+# 指定 SMTP 后端设置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# 在与SMTP服务器通信时是否使用隐式TLS（安全）连接。大多数电子邮件文档中，此类型的TLS连接称为SSL,通常在端口465上使用
+EMAIL_USE_SSL = True
+# 发送邮件使用的主机
+EMAIL_HOST = 'smtp.qq.com'
+# EMAIL_HOST定义的SMTP服务器使用端口
+EMAIL_PORT = 465
+# EMAIL_HOST 定义的SMTP 服务器使用的用户名。如果为空，Django 不会尝试认证
+EMAIL_HOST_USER = '405019079@qq.com'
+# EMAIL_HOST 定义的SMTP 服务器使用的密码。这个设置与EMAIL_HOST_USER 一起用于SMTP 服务器的认证。如果两个中有一个为空，Django 则不会尝试认证
+EMAIL_HOST_PASSWORD = 'zdngzcahnoerbgjj'
+# 用于来自站点管理员的各种自动通信的默认电子邮件地址
+DEFAULT_FROM_EMAIL = '405019079@qq.com'
+
+
