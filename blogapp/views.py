@@ -74,9 +74,11 @@ def CommentView(request,blog_id):
             Comment.objects.create(**cleaned_data)
             return redirect('blog:blog_get_detail',blog_id=blog_id)
 
+
 def SuggestView(request):
     if request.method == 'POST':
-
+        if  request.POST.get('message').strip() == '':
+            return redirect('blog:thanks')
         send_mail(
             '访客建议',
             request.POST['message'],
@@ -85,8 +87,16 @@ def SuggestView(request):
         )
         return redirect('blog:thanks')
 
-def Thanks(request, ):
-    return render(request, 'blogapp/thanks.html')
+# def get_blogs(request):
+#     #objects模型管理器
+#     #objects.all()返回包含数据库中所有对象的一个查询集
+#     #order_by()指定特定的排序
+#     blogs = Blog.objects.all().order_by('-pub_time')
+#     return render_to_response('blogapp/blog_list.html',{'blogs':blogs})
+
+def Thanks(request):
+    category_list = Category.objects.all().order_by('name')
+    return render(request, 'blogapp/thanks.html',{'category_list':category_list})
 
 
 # def get_details(request,blog_id):

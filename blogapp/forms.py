@@ -32,6 +32,7 @@ class CommentForm(Form):
                      },
                      widget=TextInput(attrs={
                          'class':'form-control',
+                         'placeholder': '取个名字'
                      })
                      )
 
@@ -42,6 +43,7 @@ class CommentForm(Form):
                         },
                         widget=Textarea(attrs={
                             'class':'form-control',
-                            'rows':3
+                            'rows':3,
+                            'placeholder':'说两句~'
                         })
                         )

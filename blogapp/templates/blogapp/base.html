@@ -54,15 +54,26 @@
     </div>
 
     <footer class="blog-footer">
-        <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
         <p>
-          <a href="#">Back to top</a>
+            <a href="{% url 'blog:index' %}">Home</a>
+            <span>|</span>
+            <a href="{% url 'blog:archives' %}">Archives</a>
+            <span>|</span>
+            <a href="#">Back to top</a>
+            </p>
+            <p>
+            <a href="https://github.com/cjxhaaa">SourceCode@Github</a>
+            <span>|</span>
+            <span>Hosted on </span><a href="https://amazonaws-china.com/cn/">AWS</a>
+            <span>|</span>
+            <span>Design from </span><a href="http://v3.bootcss.com/">bootstrap</a>
         </p>
     </footer>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <script src="{% static 'blogapp/js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'blogapp/js/bootstrap.min.js' %}"></script>
+
 
     </body>
 </html>

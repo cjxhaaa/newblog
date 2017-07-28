@@ -184,4 +184,14 @@ div#tableRow {
   vertical-align: top;
 }
 
+.errorinfo{
+        visibility:hidden;
+        color: #DD4B39;
+        line-height:18px;
+ }
+.show{ visibility:visible}
+.redborder{ border:1px solid #DD4B39}
+
+
+
 

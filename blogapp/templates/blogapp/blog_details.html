@@ -1,9 +1,9 @@
 {% extends "blogapp/base.html" %}
 {% block content %}
-    <div class="content">
+    <article class="content">
         <div class="blog">
             <div class="title">
-                <a href="#"><h2>{{ blog.title }}</h2></a>
+                <h2>{{ blog.title }}</h2>
             </div>
             <div class="info">
                 <span>{{ blog.category.name }}</span>
@@ -16,5 +16,5 @@
         </div>
         <br>
         {% include 'blogapp/comment.html' %}
-    </div>
+    </article>
 {% endblock %}
