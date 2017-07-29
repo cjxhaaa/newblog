@@ -17,9 +17,11 @@ import re
 #     return render_to_response('blogapp/blog_list.html',{'blogs':blogs})
 
 class IndexView(ListView):
-    model = Blog
     template_name = 'blogapp/blog_list.html'
     context_object_name = 'blog_list'
+    def get_queryset(self):
+        blog_list = Blog.objects.filter(status='p')
+        return blog_list
     #添加额外的内容
     def get_context_data(self, **kwargs):
         kwargs['category_list'] = Category.objects.all().order_by('name')
@@ -31,8 +33,13 @@ class BlogDetailView(DetailView):
     model = Blog
     template_name = 'blogapp/blog_details.html'
     context_object_name = 'blog'
-    #pk_url_kwarg接收来自url中的逐渐，然后根据逐渐进行查询
+    #pk_url_kwarg接收来自url中的参数，然后根据参数进行查询
     pk_url_kwarg = 'blog_id'
+    def get_object(self, queryset=None):
+        obj = super(BlogDetailView,self).get_object()
+        obj.views += 1
+        obj.save()
+        return obj
     def get_context_data(self, **kwargs):
         kwargs['category_list'] = Category.objects.all().order_by('name')
         kwargs['tag_list'] = Tag.objects.all().order_by('name')
@@ -41,24 +48,40 @@ class BlogDetailView(DetailView):
         return super(BlogDetailView,self).get_context_data(**kwargs)
 
 class CategoryView(ListView):
-    model = Blog
     template_name = 'blogapp/blog_list.html'
     context_object_name = 'blog_list'
     #get_querysett()获取Model列表，同时加入了自己的逻辑
+    def get_queryset(self):
+        blog_list = Blog.objects.filter(category=self.kwargs['cate_id'],status='p')
+        return blog_list
     def get_context_data(self, **kwargs):
-        kwargs['blog_list'] = Blog.objects.filter(category=self.kwargs['cate_id'])
         kwargs['category_list'] = Category.objects.all().order_by('name')
         kwargs['tag_list'] = Tag.objects.all().order_by('name')
         kwargs['category_name'] = get_object_or_404(Category,pk=self.kwargs['cate_id'])
         return super(CategoryView, self).get_context_data(**kwargs)
 
+class TagView(ListView):
+    template_name = 'blogapp/blog_list.html'
+    context_object_name = 'blog_list'
+    def get_queryset(self):
+        blog_list = Blog.objects.filter(tags=self.kwargs['tag_id'],status='p')
+        return blog_list
+    def get_context_data(self, **kwargs):
+        kwargs['category_list'] = Category.objects.all().order_by('name')
+        kwargs['tag_list'] = Tag.objects.all().order_by('name')
+        return super(TagView, self).get_context_data(**kwargs)
+
+
 class ArchivesView(ListView):
-    model = Blog
     template_name = 'blogapp/archives.html'
     context_object_name =  'blog_list'
+    def get_queryset(self):
+        blog_list = Blog.objects.filter(status='p')
+        return blog_list
     def get_context_data(self, **kwargs):
         kwargs['category_list'] = Category.objects.all().order_by('name')
         kwargs['blogyear_list'] = BlogYear.objects.all().order_by('-name')
+        kwargs['tag_list'] = Tag.objects.all().order_by('name')
         return super(ArchivesView,self).get_context_data(**kwargs)
 
 def CommentView(request,blog_id):
@@ -95,8 +118,12 @@ def SuggestView(request):
 #     return render_to_response('blogapp/blog_list.html',{'blogs':blogs})
 
 def Thanks(request):
-    category_list = Category.objects.all().order_by('name')
-    return render(request, 'blogapp/thanks.html',{'category_list':category_list})
+    ctx = {
+        'category_list' : Category.objects.all().order_by('name'),
+        'tag_list' : Tag.objects.all().order_by('name')
+    }
+
+    return render(request, 'blogapp/thanks.html',ctx)
 
 
 # def get_details(request,blog_id):

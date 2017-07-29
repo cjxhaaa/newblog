@@ -1,5 +1,6 @@
-<div class="sidebar-module">
-    <h4>Category</h4>
+<div class="sidebar-module sidebar-module-inset">
+    <h4><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Category</h4>
+    <hr class="right_hr">
     <ul class="list-unstyled">
         {% for category in category_list %}
         <li><a href="{% url 'blog:category' category.id %}">{{ category.name }}</a></li>

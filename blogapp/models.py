@@ -30,6 +30,10 @@ class Blog(models.Model):
     '''
     博客
     '''
+    STATUS_CHOICES = (
+        ('d','草稿'),
+        ('p','发布'),
+    )
     #CharField一个用来存储从小到很大各种长度的字符串的地方
     title = models.CharField('标题',max_length=32)
     author = models.CharField('作者',max_length=16)
@@ -39,6 +43,8 @@ class Blog(models.Model):
     pub_time = models.DateTimeField('创建时间',auto_now_add=True)
     #auto_now=True每次保存对象时，自动设置该字段为当前时间
     change_time = models.DateTimeField('修改时间',auto_now=True)
+    status = models.CharField('文章状态',max_length=1,choices=STATUS_CHOICES,default='d')
+    views = models.PositiveIntegerField('浏览量', default=0)
     #ForeignKey多对一关系。需要一个位置参数：与该模型关联的类。
     # 若要创建一个递归的关联，对象与自己具有多对一的关系，请使用models.ForeignKey('self')。
     # 如果你需要关联到一个还没有定义的模型，你可以使用模型的名字而不用模型对象本身

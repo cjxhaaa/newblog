@@ -1,21 +1,19 @@
- <div class="blog-masthead">
+<nav class="nav nav-tabs navbar-inverse navbar-fixed-top">
     <div class="container">
-        <nav class="blog-nav nav nav-tabs">
-            <a class="blog-nav-item " href="{% url 'blog:index' %}" >
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
-            </a>
-            <a class="blog-nav-item" href="{% url 'blog:archives' %}">
-                <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Archives
-            </a>
-            <a class="blog-nav-item" href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Suggest
-            </a>
-            <a class="blog-nav-item" href="/admin" >
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
-            </a>
-        </nav>
+        <a class="blog-nav-item " href="{% url 'blog:index' %}" >
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+        </a>
+        <a class="blog-nav-item" href="{% url 'blog:archives' %}">
+            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Archives
+        </a>
+        <a class="blog-nav-item" href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Suggest
+        </a>
+        <a class="blog-nav-item" href="/admin" >
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+        </a>
     </div>
-</div>
+</nav>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

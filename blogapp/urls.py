@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^detail/(?P<blog_id>\d+)/$',views.BlogDetailView.as_view(),name='blog_get_detail'),
     url(r'^detail/(?P<blog_id>\d+)/comment/$',views.CommentView,name='comment'),
     url(r'^category/(?P<cate_id>\d+)/$',views.CategoryView.as_view(),name='category'),
+    url(r'^tag/(?P<tag_id>\d+)/$',views.TagView.as_view(),name='tag'),
     url(r'^archives/$', views.ArchivesView.as_view(),name='archives'),
     url(r'^suggest/$', views.SuggestView,name='suggest'),
     url(r'^thanks/$',views.Thanks,name='thanks'),

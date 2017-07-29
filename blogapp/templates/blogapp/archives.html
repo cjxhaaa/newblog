@@ -15,8 +15,10 @@
                     </div>
                     <div id="timeCol" class="col-sm-10">
                         <a href="{% url 'blog:blog_get_detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
-                        <h4 >{{ blog.category.name }}</h4>
+                        <h4 class="label label-primary" >{{ blog.category.name }}</h4>
+                        <hr>
                     </div>
+
                 {% endif %}
             {% endfor %}
             </div>

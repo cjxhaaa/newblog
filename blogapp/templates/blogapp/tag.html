@@ -1,0 +1,11 @@
+<div class="sidebar-module sidebar-module-inset">
+    <h4><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tags</h4>
+    <hr class="right_hr">
+    <h5>
+        {% for tag in tag_list %}
+        <a href="{% url 'blog:tag' tag.id %}">
+            <span class="label label-success">{{ tag.name}}</span>&nbsp;&nbsp;
+        </a>
+        {% endfor %}
+    </h5>
+</div>
