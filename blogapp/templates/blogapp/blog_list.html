@@ -9,8 +9,11 @@
             <a href="{% url 'blog:blog_get_detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
         </header>
         <div class="info">
-            <span class="label label-primary" >{{ blog.category.name }}</span>
-            <span class="created">{{ blog.pub_time |date:"Y-m-d H:i" }}</span>
+            <a class="new_a" href="{% url 'blog:category' blog.category.id %}">
+                <span class="label label-primary" >{{ blog.category.name }}</span>
+            </a>
+            <span>&nbsp;{{ blog.pub_time |date:"Y-m-d H:i" }}</span>
+            <span>&nbsp;阅读量:{{ blog.views }}</span>
         </div>
         <br>
         <p class="summary">
