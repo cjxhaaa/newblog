@@ -19,10 +19,10 @@
         <p class="summary">
             {{ blog.content | custom_markdown | truncatechars:300 }}
         </p>
-
+    </article>
+        <a href="{% url 'blog:blog_get_detail' blog.id %}">Readmore</a>
     {#        <p><a href="{% url 'blog:blog_get_detail' blog.id %}" class="btn btn-primary" role="button">Readmore</a></p>#}
         <hr>
-    </article>
 {% endfor %}
 {% include 'blogapp/page_tags.html' %}
 {% endblock %}

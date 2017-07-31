@@ -1,28 +1,26 @@
 {% extends "blogapp/base.html" %}
 {% block content %}
 {% for year in blogyear_list %}
-<div class="row" id="tableContainer">
-    <div id="tableRow">
-        <div id="timeCol" class="col-sm-2">
-            <h1>{{ year }}</h1>
-        </div>
-        <div id="timeCol" class="col-sm-10">
-            <div id="tableRow">
-            {% for blog in blog_list %}
-                {% if blog.blogyear == year %}
-                    <div id="timeCol" class="col-sm-2">
-                        <span class="created">{{ blog.pub_time |date:"m-d" }}</span>
-                    </div>
-                    <div id="timeCol" class="col-sm-10">
-                        <a href="{% url 'blog:blog_get_detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
-                        <h4 class="label label-primary" >{{ blog.category.name }}</h4>
-                        <hr>
-                    </div>
+<div class="row">
+    <div class="col-sm-2">
+        <h1>{{ year }}</h1>
+    </div>
+    <div class="col-sm-10">
+        <ul class="list-unstyled">
+        {% for blog in blog_list %}
+            {% if blog.blogyear == year %}
+                <li class="col-sm-3">
+                    <span class="created">{{ blog.pub_time |date:"m-d" }}</span>
+                </li>
+                <li class="col-sm-9">
+                    <a href="{% url 'blog:blog_get_detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
+                    <h4 class="label label-primary" >{{ blog.category.name }}</h4>
+                    <hr>
+                </li>
 
-                {% endif %}
-            {% endfor %}
-            </div>
-        </div>
+            {% endif %}
+        {% endfor %}
+        </ul>
     </div>
 </div>
 {% endfor %}
