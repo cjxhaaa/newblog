@@ -17,11 +17,12 @@
         </div>
         <br>
         <p class="summary">
-            {{ blog.content | custom_markdown | truncatechars:300 }}
+            {{ blog.content | custom_markdown | truncatechars:200 }}
         </p>
     </article>
-        <a href="{% url 'blog:blog_get_detail' blog.id %}">Readmore</a>
-    {#        <p><a href="{% url 'blog:blog_get_detail' blog.id %}" class="btn btn-primary" role="button">Readmore</a></p>#}
+        <div>
+            <a href="{% url 'blog:blog_get_detail' blog.id %}" class="">Readmore</a>
+        </div>
         <hr>
 {% endfor %}
 {% include 'blogapp/page_tags.html' %}

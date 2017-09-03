@@ -19,5 +19,6 @@ from blogapp.views import *
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^',include('blogapp.urls',namespace='blog')),
     url(r'^blog/',include('blogapp.urls',namespace='blog')),
 ]

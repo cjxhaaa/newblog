@@ -10,7 +10,7 @@ register = template.Library()
 def custom_markdown(value):
     return mark_safe(markdown.markdown(value,
                                        extensions=['markdown.extensions.fenced_code', # 解析代码块
-                                                   'markdown.extensions.codehilite', # 为代码高亮准备
+                                                   'markdown.extensions.codehilite',   # 为代码高亮准备
                                                    'markdown.extensions.extra',
                                                    ],
                                        safe_mode=False,
