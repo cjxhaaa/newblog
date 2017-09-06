@@ -20,7 +20,7 @@ def checkWeChat(signature,timestamp,nonce,echostr):
     list.sort()
     hashstr = "%s%s%s" % tuple(list)
     hashstr = hashlib.sha1(hashstr.encode('utf-8')).hexdigest()
-    print("handle/GET func: hashcode, signature: ", hashcode, signature)
+    print("handle/GET func: hashcode, signature: ", hashstr, signature)
     if hashstr == signature:
         return echostr
     else:
