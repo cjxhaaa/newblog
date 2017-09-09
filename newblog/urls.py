@@ -21,5 +21,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^',include('blogapp.urls',namespace='blog')),
     url(r'^blog/',include('blogapp.urls',namespace='blog')),
-    url(r'^wechat/',include('wechat.urls',namespace='wechat')),
+    # url(r'^wechat/',include('wechat.urls',namespace='wechat')),
 ]
