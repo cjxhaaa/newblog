@@ -3,9 +3,10 @@ from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 import hashlib
 from lxml import etree
-from .main import *
 from .mywechat_tool import *
+from .msghandler import HandleMessage
 
+msgHandler = HandleMessage()
 
 @csrf_exempt
 def wechat(request):
@@ -26,7 +27,18 @@ def wechat(request):
     elif request.method == 'POST':
         xml_str = smart_str(request.body)
         request_xml = etree.fromstring(xml_str)
-        response_xml = auto_reply_main(request_xml)
-        return HttpResponse(request_xml)
+        return HttpResponse(handleMessages(request_xml))
 
+def handleMessages(xml):
+    '''
+    处理微信消息
+    :param xml: 
+    :return: 
+    '''
+    #按消息类型分发处理
+    type = xml.find('MsgType').text
+    if type == 'text':
+        return msgHandler.handleTxtMsg(xml)
+    else:
+        return 'success'
 
