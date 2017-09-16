@@ -17,18 +17,16 @@ TEMPLATE_CONTENT = 'Content'
 
 SUBSCRIBE_STR = '感谢您的关注！\n我的个人博客：http://www.cjxh616.com\n我的微信号：cjxh123'
 DEAFAULT_STR = '''
- 
-回复「指南」
-即可获得精品文章
-回复「爬虫」
-即可获得相关文章
-回复「段子/来个段子」
-即可获新鲜的段子
-回复「今天吃什么」
-即可随机获得一道美食
-回复 「图片+关键词」
-即可获得相关图片链接
-重复搜索能得到不同答案
+目前公众号的功能：
+1.回复「糗事百科」即可获得新鲜趣事
+2.12306车票查询功能：
+按车型查询：
+查车票，车型，出发地，目的地，年月日，小时
+如：查车票，D，杭州，上海，20170915，12
+不按车型查询：
+查车票，出发地，目的地，年月日，小时
+如：查车票，杭州，上海，20170915,12
+可获取最新车票信息
 '''
 
 class HandleMessage():
@@ -67,6 +65,7 @@ class HandleMessage():
         '''
         self.from_user = xml.find(FROM_USER).text
         self.to_user = xml.find(TO_USER).text
+        self.response_content = SUBSCRIBE_STR
 
     def __getResTxtXml(self):
         '''
@@ -105,6 +104,8 @@ class HandleMessage():
             elif self.content[:3] == '查车票':
                 self.train = SearchTickets(self.content)
                 self.response_content = self.train.get_train_info()
+            else:
+                self.response_content = DEAFAULT_STR
             return self.__getResTxtXml()
         except:
             return 'success'
@@ -115,6 +116,25 @@ class HandleMessage():
         :param xml: 
         :return: 
         '''
+        self.__getReqSubAttr(xml)
+        return self.__getResTxtXml()
+
+    def handleMessages(self,xml):
+        '''
+        处理微信消息
+        :param xml: 
+        :return: 
+        '''
+        # 按消息类型分发处理
+        type = xml.find('MsgType').text
+        if type == 'text':
+            return self.handleTxtMsg(xml)
+        elif type == 'event':
+            if xml.find('Event').text == 'subscribe':
+                return self.hangdleSubscribe(xml)
+        else:
+            return 'success'
+
 
 
 

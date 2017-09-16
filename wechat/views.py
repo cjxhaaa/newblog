@@ -3,7 +3,7 @@ from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 import hashlib
 from lxml import etree
-from .mywechat_tool import *
+from .mywechat_tool import checkWeChat
 from .msghandler import HandleMessage
 
 msgHandler = HandleMessage()
@@ -27,18 +27,45 @@ def wechat(request):
     elif request.method == 'POST':
         xml_str = smart_str(request.body)
         request_xml = etree.fromstring(xml_str)
-        return HttpResponse(handleMessages(request_xml))
+        return HttpResponse(msgHandler.handleMessages(request_xml))
 
-def handleMessages(xml):
-    '''
-    处理微信消息
-    :param xml: 
-    :return: 
-    '''
-    #按消息类型分发处理
-    type = xml.find('MsgType').text
-    if type == 'text':
-        return msgHandler.handleTxtMsg(xml)
-    else:
-        return 'success'
+
+
+def create_menu(request):
+    url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" % Config.access_token
+    data = {
+        "button": [
+            {
+                "name": "web",
+                "sub_button": [
+                    {
+                        "type": "view",
+                        "name": "个人博客",
+                        "url": "http://www.cjxh616.com"
+                    }]
+            },
+            {
+                "name": "爬虫",
+                "sub_button": [
+                    {
+                        "type": "click",
+                        "name": "糗事百科",
+                        "key": "糗事百科"
+                    },
+                    {
+                        "type": "click",
+                        "name": "12306查询",
+                        "key": "查车票"
+                    }]
+            }
+        ]
+    }
+    # data = json.loads(data)
+    # data = urllib.urlencode(data)
+    req = urllib2.Request(url)
+    req.add_header('Content-Type', 'application/json')
+    req.add_header('encoding', 'utf-8')
+    response = urllib2.urlopen(req, json.dumps(data, ensure_ascii=False))
+    result = response.read()
+    return HttpResponse(result)
 

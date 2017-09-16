@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 class QiuBai():
-	def __init__(self,url,path):
+	def __init__(self):
 		self.url = 'https://www.qiushibaike.com/'
 		self.headers = {
 			'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',

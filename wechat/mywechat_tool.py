@@ -8,6 +8,7 @@ from .basic import Basic
 TOKEN = 'cjxh2017'
 APP_ID = 'wx68c7f70e73029e26'
 APP_SERCRET = 'd0eb6851932ae501fe94a6c1160c4e18'
+EncodingAESKey = 'dull3eaQLn9d3lhiJHXv3Otj3ukEBzSdai5f7gAjPaX'
 
 def checkWeChat(signature,timestamp,nonce,echostr):
     '''
@@ -23,7 +24,6 @@ def checkWeChat(signature,timestamp,nonce,echostr):
     list.sort()
     hashstr = "%s%s%s" % tuple(list)
     hashstr = hashlib.sha1(hashstr.encode('utf-8')).hexdigest()
-    print("handle/GET func: hashcode, signature: ", hashstr, signature)
     if hashstr == signature:
         return echostr
     else:

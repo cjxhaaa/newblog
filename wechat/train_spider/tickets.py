@@ -1,9 +1,9 @@
 import requests
 import time
 from datetime import datetime
-from stations import Station
+from .stations import Station
 
-# text = 'D 绍兴 上海 20170910'
+# text = 'D 绍兴 上海 20170910 12'
 all_model = ['G', 'D', 'C', 'Z', 'T', 'K']
 fast_model = ['G', 'D', 'C']
 slow_model = ['Z', 'T', 'K']
@@ -48,7 +48,7 @@ class SearchTickets(object):
 		self.trains_info = []
 
 	def __parse_text(self, text):
-		args = str(text).lstrip('查车票').strip().split(' ')
+		args = str(text).lstrip('查车票').strip().split('，')
 		if len(args) == 4:
 			try:
 				if int(args[3]) >= 0 and int(args[3]) <= 23:
@@ -161,33 +161,19 @@ class SearchTickets(object):
 				hard_sleep = data_list[28] or '--'
 				hard_seat = data_list[29] or '--'
 				no_seat = data_list[33] or '--'
-				if self.people_date == '':
-					if self.model == '':
+				if self.model == '':
+					if int(start_time[:2]) >= int(self.people_date) and int(start_time[:2]) != 24:
 						self.__sort_info(train_number, from_station_name, to_station_name, start_time, arrive_time,
 										 time_duration,
 										 first_class_seat, second_class_seat, soft_sleep, hard_sleep, hard_seat,
 										 no_seat)
-					elif self.model in self.all_model:
-						if self.model == train_number[:1]:
-							self.__sort_info(train_number, from_station_name, to_station_name, start_time, arrive_time,
-											 time_duration,
-											 first_class_seat, second_class_seat, soft_sleep, hard_sleep, hard_seat,
-											 no_seat)
-				else:
-					if self.model == '':
+				elif self.model in self.all_model:
+					if self.model == train_number[:1]:
 						if int(start_time[:2]) >= int(self.people_date) and int(start_time[:2]) != 24:
-							self.__sort_info(train_number, from_station_name, to_station_name, start_time, arrive_time,
-											 time_duration,
+							self.__sort_info(train_number, from_station_name, to_station_name, start_time,
+											 arrive_time, time_duration,
 											 first_class_seat, second_class_seat, soft_sleep, hard_sleep, hard_seat,
 											 no_seat)
-					elif self.model in self.all_model:
-						if self.model == train_number[:1]:
-							if int(start_time[:2]) >= int(self.people_date) and int(start_time[:2]) != 24:
-								self.__sort_info(train_number, from_station_name, to_station_name, start_time,
-												 arrive_time, time_duration,
-												 first_class_seat, second_class_seat, soft_sleep, hard_sleep, hard_seat,
-												 no_seat)
-
 		if len(self.trains_info) == 0:
 			return self.error
 		else:
